@@ -1,0 +1,42 @@
+
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Users</h1>
+
+<%= form_tag @user, url: users_path, method: :get do %>
+  <%= text_field_tag :search, params[:search], id: "search", autocomplete: true %>
+  <%= submit_tag 'search', :name => nil %> 
+  <% end %>  
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <td> <%= user.name %> </td> 
+      <td> <%= user.email %> </td> 
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+<script type="text/javascript">
+  $("#search").typeahead({
+    minLength: 3, 
+    highlight: true,
+  },
+  { name: "users",
+    source: "/autocomplete"
+
+  });
+
+</script>
+<%= link_to 'New User', new_user_path %>
