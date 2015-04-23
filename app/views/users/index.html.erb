@@ -37,8 +37,10 @@ var substringMatcher = function(strs) {
   return function findMatches(q, cb) {
     var matches, substrRegex;
  
+    // an array that will be populated with substring matches
     matches = [];
  
+    // regex used to determine if a string contains the substring `q`
     substrRegex = new RegExp(q, 'i');
  
     $.each(strs, function(i, str) {
@@ -58,15 +60,18 @@ $('#search').typeahead({
   hint: true,
   highlight: true,
   spellcheck: true,
-  minLength: 2
+  minLength: 1
 },
 {
   name: 'users',
   displayKey: 'value',
-  templates: {
-    suggestion: Handlebars.compile
-  }
-  source: substringMatcher(users)
+  source: substringMatcher(users),
+
+    templates: {
+        suggestion: function(username){
+          return '<a id="typeahead" href="{{link}}">+ <p></p></a>';
+        }
+    }     
 });
 
 $('#search').typeahead('open');
