@@ -66,14 +66,18 @@ $('#search').typeahead({
   name: 'users',
   displayKey: 'value',
   source: substringMatcher(users),
-
     templates: {
-        suggestion: function(username){
-          return '<a id="typeahead" href="{{link}}">+ <p></p></a>';
-        }
-    }     
+     empty: [
+      '<div class="empty-message">',
+      'no results found',
+      '</div>'
+    ].join('\n'),
+    suggestion: function(data){
+      return '<span class = "tt-highlight">' + data.value + '</span>';
+    }
+  },  
+  engine: Hogan  
 });
 
-$('#search').typeahead('open');
 
 </script>
