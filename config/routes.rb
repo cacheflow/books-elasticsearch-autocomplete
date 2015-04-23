@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :users
-  get 'autocomplete', to: "users#autocomplete"
+  resources :users  
+    
+  get 'autocomplete', to: "users#autcomplete" 
 
+  
+  # get 'json', to: 'users#all_users_as_json'
   # get :autcomplete 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

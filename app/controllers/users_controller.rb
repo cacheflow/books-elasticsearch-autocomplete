@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
   # GET /users
   # GET /users.json
   def index
@@ -55,11 +54,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def autcomplete 
-    render json: User.search(params[:search], autcomplete: true, limit: 10).map(&:name)
-  end
-  # DELETE /users/1
-  # DELETE /users/1.json
+  # def autocomplete 
+  #    render json: User.search(params[:search], autcomplete: true, limit: 10).map(&:name)  
+  # end
+
+  # def all_users_as_json 
+  #   @users = User.all 
+  #    render json: @users
+  # end    
+  
+
   def destroy
     @user.destroy
     respond_to do |format|

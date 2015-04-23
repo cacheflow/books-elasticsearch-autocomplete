@@ -3,11 +3,15 @@
 
 <h1>Listing Users</h1>
 
-<%= form_tag @user, url: users_path, method: :get do %>
-  <%= text_field_tag :search, params[:search], id: "search", autocomplete: true %>
-  <%= submit_tag 'search', :name => nil %> 
+          <%= form_tag @user, url: users_path, method: :get do %>
+          <%= text_field_tag :search, params[:search], id: "search", autocomplete: "off", class: "form-control" %>
+          <%= submit_tag 'search', class: "btn btn-primary" %> 
+    
+
   <% end %>  
 
+
+     
 
 
 <table>
@@ -29,14 +33,42 @@
 
 
 <script type="text/javascript">
-  $("#search").typeahead({
-    minLength: 3, 
-    highlight: true,
-  },
-  { name: "users",
-    source: "/autocomplete"
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substrRegex;
+ 
+    matches = [];
+ 
+    substrRegex = new RegExp(q, 'i');
+ 
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push({ value: str });
+      }
+    });
+ 
+    cb(matches);
+  };
+};
+ 
+var users = ['lex', 'foo', 'bar', 'jim'
+];
+ 
+$('#search').typeahead({
+  hint: true,
+  highlight: true,
+  spellcheck: true,
+  minLength: 2
+},
+{
+  name: 'users',
+  displayKey: 'value',
+  templates: {
+    suggestion: Handlebars.compile
+  }
+  source: substringMatcher(users)
+});
 
-  });
+$('#search').typeahead('open');
 
 </script>
-<%= link_to 'New User', new_user_path %>

@@ -1,3 +1,3 @@
 class User < ActiveRecord::Base
-   searchkick autocomplete: ['name']
+   searchkick 
 end
